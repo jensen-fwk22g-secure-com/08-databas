@@ -13,6 +13,7 @@ await db.read()
 console.log('The database contains: ', db.data)
 
 if( db.data === null ) {
+	// vi använder namnet som id i det här exemplet
 	db.data = [
 		{ name: 'Semla', price: 29 },
 		{ name: 'Wienerbröd', price: 15 }
@@ -28,6 +29,13 @@ async function addCookie(name, price) {
 	await db.write()
 }
 
-addCookie('Brownie', 45)
+async function removeCookie(name) {
+	// Två alternativ: splice och filter
+	db.data = db.data.filter(cookie => name != cookie.name)
+	await db.write()
+}
+
+// addCookie('Brownie', 45)
+removeCookie('Semla')
 
 export { addCookie }
